@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\User;
+use App\Role;
+use App\Departement;
 class UserController extends Controller
 {
     /**
@@ -13,7 +15,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::paginate(10);
+        return view('users.index',compact('users'));
     }
 
     /**
@@ -23,7 +26,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        $roles = Role::all();
+        $departements = Departement::all();
+        return view('users.create',compact('roles','departements'));
     }
 
     /**
@@ -34,9 +39,35 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $u = new User();
+        $u->name = $request->name;
+        $u->email = $request->email;
+        $u->password = bcrypt($request->password);
+        $u->save();
+        if($request->role){
+            $u->roles()->sync($request->role);
+        }
+        if($request->dept){
+            $u->departements()->sync($request->dept);
+        }
+        return redirect()->back()->with(['success'=>true,'message'=>'User added successfully']);
     }
 
+    public function registerCustomer(Request $request)
+    {
+        $u = new User();
+        $u->name = $request->name;
+        $u->email = $request->email;
+        $u->password = bcrypt($request->password);
+        $u->save();
+        if($request->role){
+            $u->roles()->sync($request->role);
+        }
+        if($request->dept){
+            $u->departements()->sync($request->dept);
+        }
+        return redirect()->to('/home');
+    }
     /**
      * Display the specified resource.
      *
@@ -56,7 +87,10 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $roles = Role::all();
+        $user = User::findOrFail($id);
+        $departements = Departement::all();
+        return view('users.edit',compact('roles','user','departements'));
     }
 
     /**
@@ -68,7 +102,18 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $u = User::findOrFail($id);
+        $u->name = $request->name;
+        $u->email = $request->email;
+        $u->password = bcrypt($request->password);
+        $u->save();
+        if($request->role){
+            $u->roles()->sync($request->role);
+        }
+        if($request->dept){
+            $u->departements()->sync($request->dept);
+        }
+        return redirect()->back()->with(['success'=>true,'message'=>'User updated successfully']);
     }
 
     /**
@@ -79,6 +124,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $u = User::findOrFail($id)->delete();
+        return redirect()->back();
     }
 }

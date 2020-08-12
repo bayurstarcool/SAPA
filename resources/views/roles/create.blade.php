@@ -10,27 +10,16 @@
             <!-- general form elements -->
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Edit Departement</h3>
+                <h3 class="card-title">Create new Role</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form role="form" method="POST" action="{{url('reviews/'.$rev->id)}}">
-              @method('patch')
+              <form role="form" method="post" action="{{url('roles')}}">
               @csrf
                 <div class="card-body">
                   <div class="form-group">
-                    <label>Score</label>
-                    <select class="form-control" name="score">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label>Description</label>
-                    <input type="text" class="form-control" name="description" value="{{$rev->description}}" placeholder="Enter code of departement">
+                    <label>Name of Role</label>
+                    <input type="text" name="name" class="form-control" placeholder="Enter name of departement">
                   </div>
                   </div>
                 <div class="card-footer">

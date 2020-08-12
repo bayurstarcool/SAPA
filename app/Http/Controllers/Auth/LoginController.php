@@ -33,6 +33,15 @@ class LoginController extends Controller
      *
      * @return void
      */
+    public function authenticated()
+    {
+        if(auth()->user()->roles[0]->name=="Customer")
+        {
+            return redirect('/registrations/create');
+        } 
+
+        return redirect('/dashboard');
+    }
     public function __construct()
     {
         $this->middleware('guest')->except('logout');

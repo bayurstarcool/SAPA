@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Review;
+use Auth;
 use Illuminate\Http\Request;
 
 class ReviewController extends Controller
@@ -36,8 +37,9 @@ class ReviewController extends Controller
     public function store(Request $request)
     {
         $rev = new Review();
-        $rev->name = $request->name;
-        $rev->code = $request->code;
+        $rev->score = $request->score;
+        $rev->description = $request->description;
+        $rev->user_id = Auth::user()->id;
         $rev->save();
         return redirect()->to('/reviews')->with(['success'=>true,'message'=>'Review added successfully']);
     }
@@ -75,8 +77,8 @@ class ReviewController extends Controller
     public function update(Request $request, $id)
     {
         $rev = Review::findOrFail($id);
-        $rev->name = $request->name;
-        $rev->code = $request->code;
+        $rev->score = $request->score;
+        $rev->description = $request->description;
         $rev->save();
         return redirect()->to('/reviews')->with(['success'=>true,'message'=>'Review updated successfully']);
     }
@@ -89,6 +91,7 @@ class ReviewController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $rev = Review::findOrFail($id)->delete();
+        return redirect()->back();
     }
 }

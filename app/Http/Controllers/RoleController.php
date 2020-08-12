@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Registration;
-use Carbon\Carbon;
-use Auth;
-class DashboardController extends Controller
+use App\Role;
+class RoleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,13 +13,8 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $del = [];
-        foreach(Auth::user()->departements as $dept){
-            array_push($del,$dept->id);
-        }
-        $delegations = Registration::whereDate('created_at',Carbon::today())->where('status',0)->whereIn('departement_id',$del)->paginate(10);
-        $registrations = Registration::orderBy('id','DESC')->paginate(10);
-        return view('home',compact('registrations','delegations'));
+        $roles = Role::paginate(10);
+        return view('roles.index',compact('roles'));
     }
 
     /**
@@ -31,7 +24,7 @@ class DashboardController extends Controller
      */
     public function create()
     {
-        //
+        return view('roles.create');
     }
 
     /**
@@ -42,7 +35,10 @@ class DashboardController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $r = new Role();
+        $r->name = $request->name;
+        $r->save();
+        return redirect()->to('/roles')->with(['success'=>true,'message'=>'Role added successfully']);
     }
 
     /**
@@ -53,7 +49,7 @@ class DashboardController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('roles.show');
     }
 
     /**
@@ -64,7 +60,8 @@ class DashboardController extends Controller
      */
     public function edit($id)
     {
-        //
+        $role = Role::findOrFail($id);
+        return view('roles.edit',compact('role'));
     }
 
     /**
@@ -76,7 +73,10 @@ class DashboardController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $r = Role::findOrFail($id);
+        $r->name = $request->name;
+        $r->save();
+        return redirect()->to('/roles')->with(['success'=>true,'message'=>'Role updated successfully']);
     }
 
     /**

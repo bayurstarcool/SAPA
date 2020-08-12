@@ -29,19 +29,21 @@
                     <tr>
                       <th>ID</th>
                       <th>Submiter</th>
-                      <th>Score</th>
                       <th>Description Text</th>
+                      <th>Score</th>
+                      <th>Date</th>
                       <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
                     @foreach($reviews as $rev)
                     <tr>
-                      <td><a href="pages/examples/invoice.html">#{{$rev->id}}</a></td>
-                      <td><a href="pages/examples/invoice.html">{{$rev->user()->name}}</a></td>
-                      <td>{{$rev->name}}</td>
-                      <td><span class="badge badge-success">0</span></td>
-                      <td><a href="{{url('/reviews/'.$rev->id.'/edit')}}">Edit | Delete</td>
+                      <td><a href="#">#{{$rev->id}}</a></td>
+                      <td><a href="#">{{$rev->user->name}}</a></td>
+                      <td>{{$rev->description}}</td>
+                      <td><span class="badge badge-success">{{$rev->score}}</span></td>
+                      <td>{{$rev->created_at}}</td>
+                      <td><a href="{{url('/reviews/'.$rev->id.'/edit')}}">Edit</a>| <a href="{{url('/reviews/'.$rev->id.'/delete')}}">Delete</a></td>
                     </tr>
                     @endforeach
                     </tbody>

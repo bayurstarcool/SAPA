@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateReviewsTable extends Migration
+class CreateDepartementUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateReviewsTable extends Migration
      */
     public function up()
     {
-        Schema::create('reviews', function (Blueprint $table) {
+        Schema::create('departement_user', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id')->unsigned(); // kita sesuaikan dengan attribute yang ada di tabel users
-            $table->integer('score');
-            $table->text('description');
-            $table->foreign('user_id')->references('id')->on('users'); //relasi ke tabel user
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade'); //relasi ke tabel user
+            $table->unsignedBigInteger('departement_id')->unsigned(); // kita sesuaikan dengan attribute yang ada di tabel roles
+            $table->foreign('departement_id')->references('id')->on('departements')->onDelete('cascade'); //relasi ke tabel departement
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ class CreateReviewsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('reviews');
+        Schema::dropIfExists('departement_user');
     }
 }

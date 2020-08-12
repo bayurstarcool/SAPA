@@ -31,6 +31,7 @@
                       <th>Reg Number</th>
                       <th>User</th>
                       <th>Departement</th>
+                      <th>Date</th>
                       <th>Action</th>
                     </tr>
                     </thead>
@@ -39,9 +40,19 @@
                     <tr>
                       <td><a href="pages/examples/invoice.html">#{{$reg->id}}</a></td>
                       <td><a href="pages/examples/invoice.html">{{$reg->code}}</a></td>
-                      <td>{{$reg->name}}</td>
-                      <td><span class="badge badge-success">0</span></td>
-                      <td><a href="{{url('/registrations/'.$reg->id.'/edit')}}">Edit | Delete</td>
+                      <td>{{$reg->user->name}}</td>
+                      <td><span class="badge badge-success">{{$reg->departement->name}}</span></td>
+                      <td>{{$reg->created_at}}</td>
+                      <td>
+                      <form method="POST" action="/registrations/{{$reg->id}}">
+        {{ csrf_field() }}
+        {{ method_field('DELETE') }}
+
+        <div class="form-group">
+            <input type="submit" class="btn btn-danger delete-user" value="Delete">
+        </div>
+    </form>
+                      </td>
                     </tr>
                     @endforeach
                     </tbody>

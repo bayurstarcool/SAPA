@@ -14,7 +14,7 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form role="form" method="post" action="{{url('departements')}}">
+              <form role="form" method="post" action="{{url('registrations')}}">
               @csrf
                 <div class="card-body">
                   <div class="form-group">
@@ -28,7 +28,7 @@
                   <div class="form-group">
                   <label>Choose Date:</label>
                     <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                        <input type="text" class="form-control datetimepicker-input" data-target="#reservationdate">
+                        <input type="text" name="date" class="form-control datetimepicker-input" data-target="#reservationdate">
                         <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                         </div>

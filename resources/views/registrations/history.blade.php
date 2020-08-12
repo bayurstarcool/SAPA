@@ -10,7 +10,7 @@
             <!-- general form elements -->
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">List Of Departements</h3>
+                <h3 class="card-title">History</h3>
 
                 <div class="card-tools">
                   <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -27,27 +27,29 @@
                   <table class="table m-0">
                     <thead>
                     <tr>
-                      <th>Dept ID</th>
-                      <th>Dept Code</th>
-                      <th>Name</th>
-                      <th>Total Deligation</th>
-                      <th>Action</th>
+                      <th>ID</th>
+                      <th>Reg Number</th>
+                      <th>User</th>
+                      <th>Departement</th>
+                      <th>Date</th>
+                      <th>QrCode</th>
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($departements as $dept)
+                    @foreach($registrations as $reg)
                     <tr>
-                      <td><a href="pages/examples/invoice.html">#{{$dept->id}}</a></td>
-                      <td><a href="pages/examples/invoice.html">{{$dept->code}}</a></td>
-                      <td>{{$dept->name}}</td>
-                      <td><span class="badge badge-success">{{$dept->users->count()}}</span></td>
-                      <td><a href="{{url('/departements/'.$dept->id.'/edit')}}">Edit | Delete</td>
+                      <td><a href="{{url('/qrcode/'.$reg->code)}}">#{{$reg->id}}</a></td>
+                      <td><a href="{{url('/qrcode/'.$reg->code)}}">{{$reg->code}}</a></td>
+                      <td>{{$reg->user->name}}</td>
+                      <td><span class="badge badge-success">{{$reg->departement->name}}</span></td>
+                      <td>{{$reg->created_at}}</td>
+                      <td><a href="{{url('/qrcode/'.$reg->code)}}"><i class="fa fa-qrcode"></i></a></td>
                     </tr>
                     @endforeach
                     </tbody>
                   </table>
                 </div>
-                {{$departements->links()}}
+                {{$registrations->links()}}
                 <!-- /.table-responsive -->
               </div>
               <!-- /.card-body -->

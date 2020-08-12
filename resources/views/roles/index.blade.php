@@ -10,7 +10,7 @@
             <!-- general form elements -->
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">List Of Departements</h3>
+                <h3 class="card-title">List Of Roles</h3>
 
                 <div class="card-tools">
                   <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -27,27 +27,25 @@
                   <table class="table m-0">
                     <thead>
                     <tr>
-                      <th>Dept ID</th>
-                      <th>Dept Code</th>
+                      <th>Role ID</th>
                       <th>Name</th>
-                      <th>Total Deligation</th>
+                      <th>Total of Users</th>
                       <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($departements as $dept)
+                    @foreach($roles as $r)
                     <tr>
-                      <td><a href="pages/examples/invoice.html">#{{$dept->id}}</a></td>
-                      <td><a href="pages/examples/invoice.html">{{$dept->code}}</a></td>
-                      <td>{{$dept->name}}</td>
-                      <td><span class="badge badge-success">{{$dept->users->count()}}</span></td>
-                      <td><a href="{{url('/departements/'.$dept->id.'/edit')}}">Edit | Delete</td>
+                      <td><a href="pages/examples/invoice.html">#{{$r->id}}</a></td>
+                      <td>{{$r->name}}</td>
+                      <td><span class="badge badge-success">{{$r->users->count()}}</span></td>
+                      <td><a href="{{url('/roles/'.$r->id.'/edit')}}">Edit | Delete</td>
                     </tr>
                     @endforeach
                     </tbody>
                   </table>
                 </div>
-                {{$departements->links()}}
+                {{$roles->links()}}
                 <!-- /.table-responsive -->
               </div>
               <!-- /.card-body -->

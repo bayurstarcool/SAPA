@@ -10,20 +10,26 @@
             <!-- general form elements -->
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Create new Departement</h3>
+                <h3 class="card-title">Create new Review</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form role="form" method="post" action="{{url('departements')}}">
+              <form role="form" method="post" action="{{url('reviews')}}">
               @csrf
                 <div class="card-body">
                   <div class="form-group">
-                    <label>Name of Departement</label>
-                    <input type="text" name="name" class="form-control" placeholder="Enter name of departement">
+                    <label>Score</label>
+                    <select class="form-control" name="score">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    </select>
                   </div>
                   <div class="form-group">
-                    <label>Code of Departement</label>
-                    <input type="text" name="code" class="form-control" placeholder="Enter code of departement">
+                    <label>Description</label>
+                    <textarea name="description" class="form-control"></textarea>
                   </div>
                   </div>
                 <div class="card-footer">
@@ -37,3 +43,11 @@
           </div><!--/. container-fluid -->
     </section>
 @endsection
+@section('scripts')
+<script src="{{asset('dist/js/simple-rating.js')}}"></script>
+<script type="text/javascript">
+      $(document).ready(function(){
+        $('.rating').rating();
+      });
+    </script>
+@stop
